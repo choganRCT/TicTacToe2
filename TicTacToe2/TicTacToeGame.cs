@@ -9,14 +9,17 @@ namespace TicTacToe2
         public void Play()
         {
             bool winner = false;
-            bool draw = false;
-            while (!winner || !draw)
+            while (!winner)
             {
-                DrawBoard();
-                GetUserInput();
-                draw = CheckForDraw();
-                winner = CheckForWin();
-                ChangePlayer();
+                bool draw = false;
+                while (!winner && !draw )
+               {
+                   DrawBoard();
+                   GetUserInput();
+                   draw = CheckForDraw();
+                   winner = CheckForWin();
+                   ChangePlayer();
+                }
             }
         }
 
