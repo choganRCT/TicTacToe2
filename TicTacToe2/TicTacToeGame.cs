@@ -9,11 +9,13 @@ namespace TicTacToe2
         public void Play()
         {
             bool winner = false;
-            while (!winner)
+            bool draw = false;
+            while (!winner && !draw)
             {
                 DrawBoard();
-                UserInput();
-                winner = CheckWinDraw();
+                GetUserInput();
+                draw = CheckForDraw();
+                winner = CheckForWin();
                 ChangePlayer();
             }
         }
@@ -22,11 +24,15 @@ namespace TicTacToe2
         {
             throw new NotImplementedException();
         }
-        private void UserInput()
+        private void GetUserInput()
         {
             throw new NotImplementedException();
         }
-        private bool CheckWinDraw()
+        private bool CheckForDraw()
+        {
+            throw new NotImplementedException();
+        }
+        private bool CheckForWin()
         {
             throw new NotImplementedException();
         }
