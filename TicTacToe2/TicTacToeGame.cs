@@ -6,14 +6,18 @@ namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private readonly string[] space = new string[9] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        private readonly string[] space = new string[16] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
         private string player = "X";
         private int turnCount = 0;
+        private int gridNumber;
+        private int choice = 0;
         private bool winner = false;
         private bool draw = false;
+        private bool correctNumber = false;
 
         public void Play()
         {
+            ChooseBoard();
             while (!winner && !draw)
             {
                 DrawBoard();
@@ -24,62 +28,138 @@ namespace TicTacToe2
             }
         }
 
+        private void ChooseBoard()
+        {
+            string gridChoice;
+            bool correctGrid = false;
+
+            while (!correctGrid)
+            {
+                Console.WriteLine("\n\t1  -  3 x 3 grid");
+                Console.WriteLine("\t2  -  4 x 4 grid");
+                Console.Write("\nPick the number of the grid you would like to play on:  ");
+                gridChoice = Console.ReadLine();
+
+                bool isParsable = Int32.TryParse(gridChoice, out gridNumber);
+                if (!isParsable)
+                {
+                    correctGrid = false;
+                    Console.WriteLine("\nPlease enter a number.");
+                }
+                else if (gridNumber <= 0 || gridNumber > 2)
+                {
+                    correctGrid = false;
+                    Console.WriteLine("\nPlease choose 1 or 2.");
+                }
+                else
+                {
+                    correctGrid = true;
+                }
+            }
+        }
+
         private void DrawBoard()
         {
-            Console.Clear();
-            Console.WriteLine($"\n\t {space[0]} | {space[1]} | {space[2]}");
-            Console.WriteLine("\t-----------");
-            Console.WriteLine($"\t {space[3]} | {space[4]} | {space[5]}");
-            Console.WriteLine("\t-----------");
-            Console.WriteLine($"\t {space[6]} | {space[7]} | {space[8]}");
+            if (gridNumber == 1)
+            {
+                Console.Clear();
+                Console.WriteLine($"\n\t {space[0]} | {space[1]} | {space[2]}");
+                Console.WriteLine("\t-----------");
+                Console.WriteLine($"\t {space[3]} | {space[4]} | {space[5]}");
+                Console.WriteLine("\t-----------");
+                Console.WriteLine($"\t {space[6]} | {space[7]} | {space[8]}");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"\n\t  {space[0]} | {space[1]} | {space[2]} | {space[3]}");
+                Console.WriteLine("\t--------------------");
+                Console.WriteLine($"\t  {space[4]} | {space[5]} | {space[6]} | {space[7]}");
+                Console.WriteLine("\t--------------------");
+                Console.WriteLine($"\t  {space[8]} | {space[9]} | {space[10]} | {space[11]}");
+                Console.WriteLine("\t--------------------");
+                Console.WriteLine($"\t  {space[12]} | {space[13]} | {space[14]} | {space[15]}");
+            }
+
         }
 
         private void GetUserInput()
         {
             string choiceText;
             bool validInput = false;
-            bool legalMove = false;
 
-            while (!validInput && !legalMove)
+            while (!validInput)
             {
                 Console.WriteLine($"\nIt is player {player}'s turn.");
                 Console.Write("Pick a number from the board to place your mark: ");
                 choiceText = Console.ReadLine();
 
-                bool isParsable = Int32.TryParse(choiceText, out int choice);
-                //choice--;
-                if (!isParsable)
+                bool isParsable = Int32.TryParse(choiceText, out choice);
+                
+                if (!isParsable && !correctNumber)
                 {
-                    validInput = false;
                     Console.WriteLine("Please enter a number.");
-                }
-                else if (choice <= 0 || choice > 9)
-                {
                     validInput = false;
-                    Console.WriteLine("Please enter a number between 1-9.");
                 }
-                else if (space[choice - 1] == "X" || space[choice - 1] == "O")
+                else if (correctNumber = CorrectChoice())
+                {
+                    Console.WriteLine("Enter a correct number.");
+                    validInput = false;
+                }
+                else if (space[choice] == "X" || space[choice] == "O")
                 {
                     Console.WriteLine($"\n{choice++} is already taken.");
-                    legalMove = false;
+                    validInput = false;
                 }
                 else
                 {
-                    space[choice - 1] = player;
-                    legalMove = true;
+                    space[choice] = player;
+                    validInput = true;
                 }
             }
             turnCount++;
         }
 
 
+        private bool CorrectChoice()
+        {
+            choice--;
+
+            if (gridNumber == 1)
+            {
+                if (choice < 0 || choice >= 9)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (choice < 0 || choice >= 16)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
         private bool CheckForDraw()
         {
-            if (turnCount == 9)
+            if (gridNumber == 1 && turnCount == 9)
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine("\nThis game ended in a draw.");
+                Draw();
+                return true;
+            }
+            else if (gridNumber != 1 && turnCount == 16)
+            {
+                Draw();
                 return true;
             }
             else
@@ -90,49 +170,109 @@ namespace TicTacToe2
 
         private bool CheckForWin()
         {
-            if (space[0] == space[1] && space[1] == space[2])
+            if (gridNumber == 1)
             {
-                Winner();
-                return true;
-            }
-            else if (space[3] == space[4] && space[4] == space[5])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[6] == space[7] && space[7] == space[8])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[0] == space[3] && space[3] == space[6])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[1] == space[4] && space[4] == space[7])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[2] == space[5] && space[5] == space[8])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[0] == space[4] && space[4] == space[8])
-            {
-                Winner();
-                return true;
-            }
-            else if (space[2] == space[4] && space[4] == space[6])
-            {
-                Winner();
-                return true;
+                if (space[0] == space[1] && space[1] == space[2])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[3] == space[4] && space[4] == space[5])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[6] == space[7] && space[7] == space[8])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[0] == space[3] && space[3] == space[6])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[1] == space[4] && space[4] == space[7])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[2] == space[5] && space[5] == space[8])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[0] == space[4] && space[4] == space[8])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[2] == space[4] && space[4] == space[6])
+                {
+                    Winner();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                if (space[0] == space[1] && space[1] == space[2] && space[2] == space[4])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[5] == space[6] && space[6] == space[7] && space[7] == space[8])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[9] == space[10] && space[10] == space[11] && space[11] == space[12])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[13] == space[14] && space[14] == space[15] && space[15] == space[16])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[0] == space[4] && space[4] == space[8] && space[8] == space[12])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[1] == space[5] && space[5] == space[9] && space[9] == space[13])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[2] == space[6] && space[6] == space[10] && space[10] == space[14])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[3] == space[7] && space[7] == space[11] && space[11] == space[15])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[0] == space[5] && space[5] == space[10] && space[10] == space[15])
+                {
+                    Winner();
+                    return true;
+                }
+                else if (space[3] == space[6] && space[6] == space[9] && space[9] == space[12])
+                {
+                    Winner();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -153,6 +293,13 @@ namespace TicTacToe2
             Console.Clear();
             DrawBoard();
             Console.WriteLine($"\nCongratulations!! {player} won.");
+        }
+
+        private void Draw()
+        {
+            Console.Clear();
+            DrawBoard();
+            Console.WriteLine("\nThis game ended in a draw.");
         }
     }
 }
