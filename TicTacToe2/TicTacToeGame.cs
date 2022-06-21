@@ -42,45 +42,36 @@ namespace TicTacToe2
 
             while (!validInput && !legalMove)
             {
-                try
-                {
-                    Console.WriteLine($"\nIt is player {player}'s turn.");
-                    Console.Write("Pick a number from the board to place your mark: ");
-                    choiceText = Console.ReadLine();
+                Console.WriteLine($"\nIt is player {player}'s turn.");
+                Console.Write("Pick a number from the board to place your mark: ");
+                choiceText = Console.ReadLine();
 
-                    bool isParsable = Int32.TryParse(choiceText, out int choice);
-                    if (isParsable)
-                    {
-                        if (choice <= 0 || choice > 9)
-                        {
-                            validInput = false;
-                            Console.WriteLine("Please enter a number between 1-9.");
-                        }
-                        else
-                        {
-                            choice--;
-                            if (space[choice] == "X" || space[choice] == "O")
-                            {
-                                choice++;
-                                Console.WriteLine($"\n{choice} is already taken.");
-                                legalMove = false;
-                            }
-                            else
-                            {
-                                space[choice] = player;
-                                legalMove = true;
-                                validInput = false;
-                            }
-                        }
-                    }
-                }
-                catch
+                bool isParsable = Int32.TryParse(choiceText, out int choice);
+                //choice--;
+                if (!isParsable)
                 {
-                    validInput = true;
+                    validInput = false;
+                    Console.WriteLine("Please enter a number.");
                 }
-                turnCount++;
+                else if (choice <= 0 || choice > 9)
+                {
+                    validInput = false;
+                    Console.WriteLine("Please enter a number between 1-9.");
+                }
+                else if (space[choice - 1] == "X" || space[choice - 1] == "O")
+                {
+                    Console.WriteLine($"\n{choice++} is already taken.");
+                    legalMove = false;
+                }
+                else
+                {
+                    space[choice - 1] = player;
+                    legalMove = true;
+                }
             }
+            turnCount++;
         }
+
 
         private bool CheckForDraw()
         {
@@ -101,58 +92,42 @@ namespace TicTacToe2
         {
             if (space[0] == space[1] && space[1] == space[2])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[3] == space[4] && space[4] == space[5])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[6] == space[7] && space[7] == space[8])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[0] == space[3] && space[3] == space[6])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[1] == space[4] && space[4] == space[7])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[2] == space[5] && space[5] == space[8])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[0] == space[4] && space[4] == space[8])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else if (space[2] == space[4] && space[4] == space[6])
             {
-                Console.Clear();
-                DrawBoard();
-                Console.WriteLine($"\nCongratulations!! {player} won.");
+                Winner();
                 return true;
             }
             else
@@ -172,6 +147,14 @@ namespace TicTacToe2
                 return "X";
             }
         }
+
+        private void Winner()
+        {
+            Console.Clear();
+            DrawBoard();
+            Console.WriteLine($"\nCongratulations!! {player} won.");
+        }
     }
 }
+
 
