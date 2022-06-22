@@ -11,12 +11,12 @@ namespace TicTacToe2
         private int turnCount = 0;
         private int gridNumber;
         private int choice = 0;
-        private bool winner = false;
-        private bool draw = false;
-        private bool correctNumber = false;
 
         public void Play()
         {
+            bool winner = false;
+            bool draw = false;
+
             ChooseBoard();
             while (!winner && !draw)
             {
@@ -46,7 +46,7 @@ namespace TicTacToe2
                     correctGrid = false;
                     Console.WriteLine("\nPlease enter a number.");
                 }
-                else if (gridNumber <= 0 || gridNumber > 2)
+                else if (!GetUserInput(1, 2, gridNumber))
                 {
                     correctGrid = false;
                     Console.WriteLine("\nPlease choose 1 or 2.");
@@ -56,6 +56,11 @@ namespace TicTacToe2
                     correctGrid = true;
                 }
             }
+        }
+
+        private bool GetUserInput(int min, int max, int number)
+        {
+            return (number >= min && number <= max);
         }
 
         private void DrawBoard()
@@ -73,11 +78,11 @@ namespace TicTacToe2
             {
                 Console.Clear();
                 Console.WriteLine($"\n\t  {space[0]} | {space[1]} | {space[2]} | {space[3]}");
-                Console.WriteLine("\t--------------------");
+                Console.WriteLine("\t-----------------");
                 Console.WriteLine($"\t  {space[4]} | {space[5]} | {space[6]} | {space[7]}");
-                Console.WriteLine("\t--------------------");
+                Console.WriteLine("\t-----------------");
                 Console.WriteLine($"\t  {space[8]} | {space[9]} | {space[10]} | {space[11]}");
-                Console.WriteLine("\t--------------------");
+                Console.WriteLine("\t-----------------");
                 Console.WriteLine($"\t  {space[12]} | {space[13]} | {space[14]} | {space[15]}");
             }
 
@@ -87,6 +92,7 @@ namespace TicTacToe2
         {
             string choiceText;
             bool validInput = false;
+            bool correctNumber = false;
 
             while (!validInput)
             {
@@ -95,20 +101,20 @@ namespace TicTacToe2
                 choiceText = Console.ReadLine();
 
                 bool isParsable = Int32.TryParse(choiceText, out choice);
-                
-                if (!isParsable && !correctNumber)
+
+                if (!isParsable)
                 {
-                    Console.WriteLine("Please enter a number.");
+                    Console.WriteLine("\nPlease enter a number.");
                     validInput = false;
                 }
-                else if (correctNumber = CorrectChoice())
+                else if (correctNumber == CorrectChoice())
                 {
-                    Console.WriteLine("Enter a correct number.");
+                    Console.WriteLine("\nEnter a correct number.");
                     validInput = false;
                 }
                 else if (space[choice] == "X" || space[choice] == "O")
                 {
-                    Console.WriteLine($"\n{choice++} is already taken.");
+                    Console.WriteLine($"\n{choice + 1} is already taken.");
                     validInput = false;
                 }
                 else
@@ -123,11 +129,11 @@ namespace TicTacToe2
 
         private bool CorrectChoice()
         {
-            choice--;
+            --choice;
 
             if (gridNumber == 1)
             {
-                if (choice < 0 || choice >= 9)
+                if (GetUserInput(0, 8, choice))
                 {
                     return true;
                 }
@@ -138,7 +144,7 @@ namespace TicTacToe2
             }
             else
             {
-                if (choice < 0 || choice >= 16)
+                if (GetUserInput(0, 15, choice))
                 {
                     return true;
                 }
