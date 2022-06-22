@@ -30,37 +30,36 @@ namespace TicTacToe2
 
         private void ChooseBoard()
         {
-            string gridChoice;
-            bool correctGrid = false;
-
-            while (!correctGrid)
-            {
-                Console.WriteLine("\n\t1  -  3 x 3 grid");
-                Console.WriteLine("\t2  -  4 x 4 grid");
-                Console.Write("\nPick the number of the grid you would like to play on:  ");
-                gridChoice = Console.ReadLine();
-
-                bool isParsable = Int32.TryParse(gridChoice, out gridNumber);
-                if (!isParsable)
-                {
-                    correctGrid = false;
-                    Console.WriteLine("\nPlease enter a number.");
-                }
-                else if (!GetUserInput(1, 2, gridNumber))
-                {
-                    correctGrid = false;
-                    Console.WriteLine("\nPlease choose 1 or 2.");
-                }
-                else
-                {
-                    correctGrid = true;
-                }
-            }
+            Console.WriteLine("\n\t1  -  3 x 3 grid");
+            Console.WriteLine("\t2  -  4 x 4 grid");
+            Console.Write("\nPick the number of the grid you would like to play on:  ");
+            gridNumber = GetUserInput(1, 2);
         }
 
-        private bool GetUserInput(int min, int max, int number)
+        private int GetUserInput(int min, int max)
         {
-            return (number >= min && number <= max);
+            int inputValue = 0;
+            bool validInputGiven = false;
+
+            while (!validInputGiven)
+            {
+                Console.Write($"Enter a number between {min} and {max}: ");
+                string input = Console.ReadLine();
+
+                if (!int.TryParse(input, out inputValue))
+                {
+                    Console.WriteLine($"{input} is not a number");
+                    continue;
+                }
+
+                if (inputValue < min || inputValue > max)
+                {
+                    Console.WriteLine($"{inputValue} is not between {min} and {max}");
+                    continue;
+                }
+                validInputGiven = true;
+            }
+            return inputValue;
         }
 
         private void DrawBoard()
@@ -90,73 +89,37 @@ namespace TicTacToe2
 
         private void GetUserInput()
         {
-            string choiceText;
             bool validInput = false;
-            bool correctNumber = false;
 
             while (!validInput)
             {
                 Console.WriteLine($"\nIt is player {player}'s turn.");
                 Console.Write("Pick a number from the board to place your mark: ");
-                choiceText = Console.ReadLine();
 
-                bool isParsable = Int32.TryParse(choiceText, out choice);
+                if (gridNumber == 1)
+                {
+                    choice = GetUserInput(1, 9);
+                }
+                else
+                {
+                    choice = GetUserInput(1, 16);
+                }
 
-                if (!isParsable)
+                if (space[choice - 1] == "X" || space[choice - 1] == "O")
                 {
-                    Console.WriteLine("\nPlease enter a number.");
-                    validInput = false;
-                }
-                else if (correctNumber == CorrectChoice())
-                {
-                    Console.WriteLine("\nEnter a correct number.");
-                    validInput = false;
-                }
-                else if (space[choice] == "X" || space[choice] == "O")
-                {
-                    Console.WriteLine($"\n{choice + 1} is already taken.");
+                    Console.WriteLine($"\n{choice} is already taken.");
                     validInput = false;
                 }
                 else
                 {
-                    space[choice] = player;
+                    space[choice - 1] = player;
                     validInput = true;
                 }
             }
             turnCount++;
         }
 
-
-        private bool CorrectChoice()
-        {
-            --choice;
-
-            if (gridNumber == 1)
-            {
-                if (GetUserInput(0, 8, choice))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if (GetUserInput(0, 15, choice))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-        }
-
-        private bool CheckForDraw()
+         private bool CheckForDraw()
         {
             if (gridNumber == 1 && turnCount == 9)
             {
@@ -309,5 +272,3 @@ namespace TicTacToe2
         }
     }
 }
-
-
