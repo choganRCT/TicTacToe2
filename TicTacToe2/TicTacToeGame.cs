@@ -6,11 +6,13 @@ namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private readonly string[] space = new string[16] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
-        private string player = "X";
+        private readonly char[,] space = new char[65000, 65000];
+        private char player = 'X';
         private int turnCount = 0;
-        private int gridNumber;
-        private int choice = 0;
+
+        private int gridNumber = 0;
+        private int choiceRow = 0;
+        private int choiceColumn = 0;
 
         public void Play()
         {
@@ -18,22 +20,22 @@ namespace TicTacToe2
             bool draw = false;
 
             ChooseBoard();
+            InitializeBoard();
             while (!winner && !draw)
             {
                 DrawBoard();
                 GetUserInput();
                 draw = CheckForDraw();
-                winner = CheckForWin();
+                //winner = CheckForWin();
                 player = ChangePlayer();
             }
         }
 
         private void ChooseBoard()
         {
-            Console.WriteLine("\n\t1  -  3 x 3 grid");
-            Console.WriteLine("\t2  -  4 x 4 grid");
-            Console.Write("\nPick the number of the grid you would like to play on:  ");
-            gridNumber = GetUserInput(1, 2);
+            Console.WriteLine("\nThis grid is user defined.");
+            Console.WriteLine("ie.Inputing 3 will result in a grid 3 rows by 3 columns.");
+            gridNumber = GetUserInput(3, 99999);
         }
 
         private int GetUserInput(int min, int max)
@@ -62,29 +64,38 @@ namespace TicTacToe2
             return inputValue;
         }
 
+        private void InitializeBoard()
+        {
+            for (int row = 0; row < gridNumber; row++)
+            {
+                for (int col = 0; col < gridNumber; col++)
+                {
+                    space[row, col] = ' ';
+                }
+            }
+        }
+
         private void DrawBoard()
         {
-            if (gridNumber == 1)
+            Console.Clear();
+            Console.Write("    ");
+            for (int col = 0; col < gridNumber; col++)
             {
-                Console.Clear();
-                Console.WriteLine($"\n\t {space[0]} | {space[1]} | {space[2]}");
-                Console.WriteLine("\t-----------");
-                Console.WriteLine($"\t {space[3]} | {space[4]} | {space[5]}");
-                Console.WriteLine("\t-----------");
-                Console.WriteLine($"\t {space[6]} | {space[7]} | {space[8]}");
+                Console.Write(col + "   ");
             }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine($"\n\t  {space[0]} | {space[1]} | {space[2]} | {space[3]}");
-                Console.WriteLine("\t-----------------");
-                Console.WriteLine($"\t  {space[4]} | {space[5]} | {space[6]} | {space[7]}");
-                Console.WriteLine("\t-----------------");
-                Console.WriteLine($"\t  {space[8]} | {space[9]} | {space[10]} | {space[11]}");
-                Console.WriteLine("\t-----------------");
-                Console.WriteLine($"\t  {space[12]} | {space[13]} | {space[14]} | {space[15]}");
-            }
+            
+            Console.WriteLine();
 
+            for (int row = 0; row < gridNumber; row++)
+            {
+                Console.Write(row + " | ");
+                for (int col = 0; col < gridNumber; col++)
+                {
+                    Console.Write(space[row, col]);
+                    Console.Write(" | ");
+                }
+                Console.WriteLine();
+            }
         }
 
         private void GetUserInput()
@@ -94,39 +105,28 @@ namespace TicTacToe2
             while (!validInput)
             {
                 Console.WriteLine($"\nIt is player {player}'s turn.");
-                Console.Write("Pick a number from the board to place your mark: ");
+                Console.Write("Pick a row from the board to place your mark: ");
+                choiceRow = GetUserInput(0, gridNumber - 1);
+                Console.Write("Pick a column from the board to place your mark: ");
+                choiceColumn = GetUserInput(0, gridNumber - 1);
 
-                if (gridNumber == 1)
+                if (space[choiceRow, choiceColumn] == 'X' || space[choiceRow, choiceColumn] == 'O')
                 {
-                    choice = GetUserInput(1, 9);
-                }
-                else
-                {
-                    choice = GetUserInput(1, 16);
-                }
-
-                if (space[choice - 1] == "X" || space[choice - 1] == "O")
-                {
-                    Console.WriteLine($"\n{choice} is already taken.");
+                    Console.WriteLine($"\n{choiceRow}, {choiceColumn} is already taken.");
                     validInput = false;
                 }
                 else
                 {
-                    space[choice - 1] = player;
+                    space[choiceRow, choiceColumn] = player;
                     validInput = true;
                 }
             }
             turnCount++;
         }
 
-         private bool CheckForDraw()
+        private bool CheckForDraw()
         {
-            if (gridNumber == 1 && turnCount == 9)
-            {
-                Draw();
-                return true;
-            }
-            else if (gridNumber != 1 && turnCount == 16)
+            if (turnCount == (gridNumber * gridNumber))
             {
                 Draw();
                 return true;
@@ -137,123 +137,30 @@ namespace TicTacToe2
             }
         }
 
-        private bool CheckForWin()
+        /*private bool CheckForWin()
         {
-            if (gridNumber == 1)
+            if ()
             {
-                if (space[0] == space[1] && space[1] == space[2])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[3] == space[4] && space[4] == space[5])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[6] == space[7] && space[7] == space[8])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[0] == space[3] && space[3] == space[6])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[1] == space[4] && space[4] == space[7])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[2] == space[5] && space[5] == space[8])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[0] == space[4] && space[4] == space[8])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[2] == space[4] && space[4] == space[6])
-                {
-                    Winner();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if (space[0] == space[1] && space[1] == space[2] && space[2] == space[4])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[5] == space[6] && space[6] == space[7] && space[7] == space[8])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[9] == space[10] && space[10] == space[11] && space[11] == space[12])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[13] == space[14] && space[14] == space[15] && space[15] == space[16])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[0] == space[4] && space[4] == space[8] && space[8] == space[12])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[1] == space[5] && space[5] == space[9] && space[9] == space[13])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[2] == space[6] && space[6] == space[10] && space[10] == space[14])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[3] == space[7] && space[7] == space[11] && space[11] == space[15])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[0] == space[5] && space[5] == space[10] && space[10] == space[15])
-                {
-                    Winner();
-                    return true;
-                }
-                else if (space[3] == space[6] && space[6] == space[9] && space[9] == space[12])
-                {
-                    Winner();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
 
-        private string ChangePlayer()
-        {
-            if (player == "X")
-            {
-                return "O";
+                return true;
+
             }
             else
             {
-                return "X";
+                return false;
+            }
+        }*/
+
+
+        private char ChangePlayer()
+        {
+            if (player == 'X')
+            {
+                return 'O';
+            }
+            else
+            {
+                return 'X';
             }
         }
 
