@@ -137,10 +137,16 @@ namespace TicTacToe2
 
         private bool CheckForWin()
         {
+            if (CheckHorizontal() == true || CheckVertical() == true || CheckDiagonals() == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckHorizontal()
+        {
             int hCells = 0;
-            int vCells = 0;
-            int dCells = 0;
-            int rdCells = 0;
 
             for (int row = 0; row < gridNumber; row++)
             {
@@ -158,6 +164,13 @@ namespace TicTacToe2
                 }
                 hCells = 0;
             }
+            return false;
+        }
+
+        private bool CheckVertical()
+        {
+            int vCells = 0;
+
             for (int col = 0; col < gridNumber; col++)
             {
                 for (int row = 0; row < gridNumber; row++)
@@ -174,6 +187,14 @@ namespace TicTacToe2
                 }
                 vCells = 0;
             }
+            return false;
+        }
+
+        private bool CheckDiagonals()
+        {
+            int dCells = 0;
+            int rdCells = 0;
+
             for (int row = 0; row < gridNumber; row++)
             {
                 if (space[row, row] == player)
