@@ -9,10 +9,7 @@ namespace TicTacToe2
         private readonly char[,] space = new char[1000, 1000];
         private char player = 'X';
         private int turnCount = 0;
-
         private int gridNumber = 0;
-        private int choiceRow = 0;
-        private int choiceColumn = 0;
 
         public void Play()
         {
@@ -101,6 +98,8 @@ namespace TicTacToe2
         private void GetUserInput()
         {
             bool validInput = false;
+            int choiceRow = 0;
+            int choiceColumn = 0;
 
             while (!validInput)
             {
