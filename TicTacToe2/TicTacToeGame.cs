@@ -6,7 +6,7 @@ namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private readonly char[,] space = new char[65000, 65000];
+        private readonly char[,] space = new char[1000, 1000];
         private char player = 'X';
         private int turnCount = 0;
 
@@ -26,7 +26,7 @@ namespace TicTacToe2
                 DrawBoard();
                 GetUserInput();
                 draw = CheckForDraw();
-                //winner = CheckForWin();
+                winner = CheckForWin();
                 player = ChangePlayer();
             }
         }
@@ -35,7 +35,7 @@ namespace TicTacToe2
         {
             Console.WriteLine("\nThis grid is user defined.");
             Console.WriteLine("ie.Inputing 3 will result in a grid 3 rows by 3 columns.");
-            gridNumber = GetUserInput(3, 99999);
+            gridNumber = GetUserInput(3, 1000);
         }
 
         private int GetUserInput(int min, int max)
@@ -83,7 +83,7 @@ namespace TicTacToe2
             {
                 Console.Write(col + "   ");
             }
-            
+
             Console.WriteLine();
 
             for (int row = 0; row < gridNumber; row++)
@@ -137,20 +137,72 @@ namespace TicTacToe2
             }
         }
 
-        /*private bool CheckForWin()
+        private bool CheckForWin()
         {
-            if ()
+            int hCells = 0;
+            int vCells = 0;
+            int dCells = 0;
+            int rdCells = 0;
+
+            for (int row = 0; row < gridNumber; row++)
             {
-
-                return true;
-
+                for (int col = 0; col < gridNumber; col++)
+                {
+                    if (space[row, col] == player)
+                    {
+                        hCells++;
+                        if (hCells == gridNumber)
+                        {
+                            Winner();
+                            return true;
+                        }
+                    }
+                }
+                hCells = 0;
             }
-            else
+            for (int col = 0; col < gridNumber; col++)
             {
-                return false;
+                for (int row = 0; row < gridNumber; row++)
+                {
+                    if (space[row, col] == player)
+                    {
+                        vCells++;
+                        if (vCells == gridNumber)
+                        {
+                            Winner();
+                            return true;
+                        }
+                    }
+                }
+                vCells = 0;
             }
-        }*/
-
+            for (int row = 0; row < gridNumber; row++)
+            {
+                if (space[row, row] == player)
+                {
+                    dCells++;
+                    if (dCells == gridNumber)
+                    {
+                        Winner();
+                        return true;
+                    }
+                }
+            }
+            for (int row = 0; row < gridNumber; row++)
+            {
+                int col = gridNumber - row - 1;
+                if (space[row, col] == player)
+                {
+                    rdCells++;
+                    if (rdCells == gridNumber)
+                    {
+                        Winner();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         private char ChangePlayer()
         {
