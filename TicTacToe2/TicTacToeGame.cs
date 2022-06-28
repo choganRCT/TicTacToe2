@@ -137,11 +137,13 @@ namespace TicTacToe2
 
         private bool CheckForWin()
         {
-            if (CheckHorizontal() == true || CheckVertical() == true || CheckDiagonals() == true)
+            bool win = CheckHorizontal() || CheckVertical() || CheckDiagonals();
+
+            if (win)
             {
-                return true;
+                Winner();
             }
-            return false;
+            return win;
         }
 
         private bool CheckHorizontal()
@@ -157,7 +159,6 @@ namespace TicTacToe2
                         hCells++;
                         if (hCells == gridNumber)
                         {
-                            Winner();
                             return true;
                         }
                     }
@@ -180,7 +181,6 @@ namespace TicTacToe2
                         vCells++;
                         if (vCells == gridNumber)
                         {
-                            Winner();
                             return true;
                         }
                     }
@@ -202,7 +202,6 @@ namespace TicTacToe2
                     dCells++;
                     if (dCells == gridNumber)
                     {
-                        Winner();
                         return true;
                     }
                 }
@@ -215,7 +214,6 @@ namespace TicTacToe2
                     rdCells++;
                     if (rdCells == gridNumber)
                     {
-                        Winner();
                         return true;
                     }
                 }
