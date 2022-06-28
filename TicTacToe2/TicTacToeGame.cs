@@ -6,7 +6,7 @@ namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private readonly char[,] space = new char[1000, 1000];
+        private char[,] space;
         private char player = 'X';
         private int turnCount = 0;
         private int gridNumber = 0;
@@ -33,6 +33,7 @@ namespace TicTacToe2
             Console.WriteLine("\nThis grid is user defined.");
             Console.WriteLine("ie.Inputing 3 will result in a grid 3 rows by 3 columns.");
             gridNumber = GetUserInput(3, 1000);
+            space = new char[gridNumber, gridNumber];
         }
 
         private int GetUserInput(int min, int max)
@@ -98,16 +99,14 @@ namespace TicTacToe2
         private void GetUserInput()
         {
             bool validInput = false;
-            int choiceRow = 0;
-            int choiceColumn = 0;
 
             while (!validInput)
             {
                 Console.WriteLine($"\nIt is player {player}'s turn.");
                 Console.Write("Pick a row from the board to place your mark: ");
-                choiceRow = GetUserInput(0, gridNumber - 1);
+                int choiceRow = GetUserInput(0, gridNumber - 1);
                 Console.Write("Pick a column from the board to place your mark: ");
-                choiceColumn = GetUserInput(0, gridNumber - 1);
+                int choiceColumn = GetUserInput(0, gridNumber - 1);
 
                 if (space[choiceRow, choiceColumn] == 'X' || space[choiceRow, choiceColumn] == 'O')
                 {
