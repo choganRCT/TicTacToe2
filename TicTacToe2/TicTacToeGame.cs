@@ -6,12 +6,12 @@ namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private char[,] space;
-        private char player = 'X';
-        private int turnCount = 0;
-        private int gridNumber = 0;
+       
+        private char player = 'X'; //Player
+        private int turnCount = 0; //Game
+       
 
-        public void Play()
+        public void Play()  //Game
         {
             bool winner = false;
             bool draw = false;
@@ -26,14 +26,6 @@ namespace TicTacToe2
                 winner = CheckForWin();
                 player = ChangePlayer();
             }
-        }
-
-        private void ChooseBoard()
-        {
-            Console.WriteLine("\nThis grid is user defined.");
-            Console.WriteLine("ie.Inputing 3 will result in a grid 3 rows by 3 columns.");
-            gridNumber = GetUserInput(3, 1000);
-            space = new char[gridNumber, gridNumber];
         }
 
         private int GetUserInput(int min, int max)
@@ -62,67 +54,7 @@ namespace TicTacToe2
             return inputValue;
         }
 
-        private void InitializeBoard()
-        {
-            for (int row = 0; row < gridNumber; row++)
-            {
-                for (int col = 0; col < gridNumber; col++)
-                {
-                    space[row, col] = ' ';
-                }
-            }
-        }
-
-        private void DrawBoard()
-        {
-            Console.Clear();
-            Console.Write("    ");
-            for (int col = 0; col < gridNumber; col++)
-            {
-                Console.Write(col + "   ");
-            }
-
-            Console.WriteLine();
-
-            for (int row = 0; row < gridNumber; row++)
-            {
-                Console.Write(row + " | ");
-                for (int col = 0; col < gridNumber; col++)
-                {
-                    Console.Write(space[row, col]);
-                    Console.Write(" | ");
-                }
-                Console.WriteLine();
-            }
-        }
-
-        private void GetUserInput()
-        {
-            bool validInput = false;
-
-            while (!validInput)
-            {
-                Console.WriteLine($"\nIt is player {player}'s turn.");
-                Console.Write("Pick a row from the board to place your mark: ");
-                int choiceRow = GetUserInput(0, gridNumber - 1);
-                Console.Write("Pick a column from the board to place your mark: ");
-                int choiceColumn = GetUserInput(0, gridNumber - 1);
-
-                if (space[choiceRow, choiceColumn] == 'X' || space[choiceRow, choiceColumn] == 'O')
-                {
-                    Console.WriteLine($"\n{choiceRow}, {choiceColumn} is already taken.");
-                    validInput = false;
-                }
-                else
-                {
-                    space[choiceRow, choiceColumn] = player;
-                    validInput = true;
-                }
-            }
-            turnCount++;
-        }
-
-        private bool CheckForDraw()
+        private bool CheckForDraw() //Game
         {
             if (turnCount == (gridNumber * gridNumber))
             {
@@ -135,7 +67,7 @@ namespace TicTacToe2
             }
         }
 
-        private bool CheckForWin()
+        private bool CheckForWin() //Game
         {
             bool win = CheckHorizontal() || CheckVertical() || CheckDiagonals();
 
@@ -146,7 +78,7 @@ namespace TicTacToe2
             return win;
         }
 
-        private bool CheckHorizontal()
+        private bool CheckHorizontal() //Game
         {
             int hCells = 0;
 
@@ -168,7 +100,7 @@ namespace TicTacToe2
             return false;
         }
 
-        private bool CheckVertical()
+        private bool CheckVertical()  //Game
         {
             int vCells = 0;
 
@@ -190,7 +122,7 @@ namespace TicTacToe2
             return false;
         }
 
-        private bool CheckDiagonals()
+        private bool CheckDiagonals()  //Game
         {
             int dCells = 0;
             int rdCells = 0;
@@ -221,7 +153,7 @@ namespace TicTacToe2
             return false;
         }
 
-        private char ChangePlayer()
+        private char ChangePlayer() //Player
         {
             if (player == 'X')
             {
@@ -233,14 +165,14 @@ namespace TicTacToe2
             }
         }
 
-        private void Winner()
+        private void Winner() //Game
         {
             Console.Clear();
             DrawBoard();
             Console.WriteLine($"\nCongratulations!! {player} won.");
         }
 
-        private void Draw()
+        private void Draw() //Game
         {
             Console.Clear();
             DrawBoard();
