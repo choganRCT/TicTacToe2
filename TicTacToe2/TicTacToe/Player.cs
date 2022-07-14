@@ -6,18 +6,22 @@ namespace TicTacToe2.TicTacToe
 {
     class Player
     {
-        private char player = 'X'; //Player
-
-        private char ChangePlayer() //Player
+        /*public Player(char symbol)
         {
-            if (player == 'X')
-            {
-                return 'O';
-            }
-            else
-            {
-                return 'X';
-            }
+
         }
+
+        public void GetMove(out int x, out int y)  //we need to return multiple values
+        {
+
+        }
+
+        public char GetSymbol()
+        {
+
+        }
+
+        public char Symbol { get; }*/
+
     }
 }
