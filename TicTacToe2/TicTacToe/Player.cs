@@ -6,30 +6,25 @@ namespace TicTacToe2.TicTacToe
 {
     class Player
     {
+        public int row;
+        public int col;
+
+        public char Symbol { get; }
 
         public Player(char symbol)
         {
             Symbol = symbol;
         }
 
-        public void GetMove(out int x, out int y)  //we need to return multiple values
+        public void GetMove(out int x, out int y)
         {
-            x = 0;
-            y = 0;
+            x = row;
+            y = col;
         }
 
         public char GetSymbol()
         {
-            if (Symbol == 'X')
-            {
-                return 'O';
-            }
-            else
-            {
-                return 'X';
-            }
+            return Symbol;
         }
-
-        public char Symbol { get; }
     }
 }

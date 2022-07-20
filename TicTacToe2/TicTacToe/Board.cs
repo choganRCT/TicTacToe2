@@ -7,32 +7,27 @@ namespace TicTacToe2.TicTacToe
     class Board
     {
         public int Size { get; }
-        public char[,] Spaces;
+        private readonly char[,] spaces;
 
         public Board(int size)
         {
             Size = size;
-            Spaces = new char[Size, Size];
+            spaces = new char[Size, Size];
         }
 
         public void PlaceMark(int x, int y, char symbol)
         {
-            Spaces[x, y] = symbol;
+            spaces[x, y] = symbol;
         }
 
         public bool HasMarkAt(int x, int y)
         {
-             if (Spaces[x, y] == 'X' || Spaces[x, y] == 'O')
-            {
-                return true;
-            }
-            return false;
-
+            return spaces[x, y] != ' ';
         }
 
         public bool IsOnBoard(int x, int y)
         {
-            if (x <= Size - 1 && y <= Size - 1)
+            if (x >= Size - 1 || x < 0 || y >= Size - 1 || y < 0)
             {
                 return true;
             }
@@ -54,7 +49,7 @@ namespace TicTacToe2.TicTacToe
                 Console.Write(x + "| ");
                 for (int y = 0; y < Size; y++)
                 {
-                    Console.Write(Spaces[x, y]);
+                    Console.Write(spaces[x, y]);
                     Console.Write(" | ");
                 }
                 Console.WriteLine();
