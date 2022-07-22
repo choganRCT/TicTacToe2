@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TicTacToe2.TicTacToe;
 
 namespace TicTacToe2
 {
     class TicTacToeGame
     {
-        private char[,] space;
+        private char[,] spaces;
         private char player = 'X';
         private int turnCount = 0;
-        private int gridNumber = 0;
+        private int size = 0;
 
         public void Play()
         {
@@ -31,9 +32,9 @@ namespace TicTacToe2
         private void ChooseBoard()
         {
             Console.WriteLine("\nThis grid is user defined.");
-            Console.WriteLine("ie.Inputing 3 will result in a grid 3 rows by 3 columns.");
-            gridNumber = GetUserInput(3, 1000);
-            space = new char[gridNumber, gridNumber];
+            Console.WriteLine("ie. Inputing 3 will result in a grid 3 rows by 3 columns.");
+            size = GetUserInput(3, 1000);
+            spaces = new char[size, size];
         }
 
         private int GetUserInput(int min, int max)
@@ -64,32 +65,33 @@ namespace TicTacToe2
 
         private void InitializeBoard()
         {
-            for (int row = 0; row < gridNumber; row++)
+            for (int row = 0; row < size; row++)
             {
-                for (int col = 0; col < gridNumber; col++)
+                for (int col = 0; col < size; col++)
                 {
-                    space[row, col] = ' ';
+                    spaces[row, col] = ' ';
                 }
             }
         }
 
-        private void DrawBoard()
+        public void DrawBoard()
         {
             Console.Clear();
             Console.Write("    ");
-            for (int col = 0; col < gridNumber; col++)
+
+            for (int col = 0; col < size; col++)
             {
-                Console.Write(col + "   ");
+                Console.Write(col + "    ");
             }
 
             Console.WriteLine();
 
-            for (int row = 0; row < gridNumber; row++)
+            for (int row = 0; row < size; row++)
             {
                 Console.Write(row + " | ");
-                for (int col = 0; col < gridNumber; col++)
+                for (int col = 0; col < size; col++)
                 {
-                    Console.Write(space[row, col]);
+                    Console.Write(spaces[row, col]);
                     Console.Write(" | ");
                 }
                 Console.WriteLine();
@@ -103,19 +105,19 @@ namespace TicTacToe2
             while (!validInput)
             {
                 Console.WriteLine($"\nIt is player {player}'s turn.");
-                Console.Write("Pick a row from the board to place your mark: ");
-                int choiceRow = GetUserInput(0, gridNumber - 1);
-                Console.Write("Pick a column from the board to place your mark: ");
-                int choiceColumn = GetUserInput(0, gridNumber - 1);
+                Console.Write("Pick a row from teh board to place your mark: ");
+                int choiceRow = GetUserInput(0, size - 1);
+                Console.WriteLine("Pick a column from the board to plae your mark: ");
+                int choiceColumn = GetUserInput(0, size - 1);
 
-                if (space[choiceRow, choiceColumn] == 'X' || space[choiceRow, choiceColumn] == 'O')
+                if (spaces[choiceRow, choiceColumn] == 'X' || spaces[choiceRow, choiceColumn] == 'O')
                 {
                     Console.WriteLine($"\n{choiceRow}, {choiceColumn} is already taken.");
                     validInput = false;
                 }
                 else
                 {
-                    space[choiceRow, choiceColumn] = player;
+                    spaces[choiceRow, choiceColumn] = player;
                     validInput = true;
                 }
             }
@@ -124,7 +126,7 @@ namespace TicTacToe2
 
         private bool CheckForDraw()
         {
-            if (turnCount == (gridNumber * gridNumber))
+            if (turnCount == (size * size))
             {
                 Draw();
                 return true;
@@ -150,14 +152,14 @@ namespace TicTacToe2
         {
             int hCells = 0;
 
-            for (int row = 0; row < gridNumber; row++)
+            for (int row = 0; row < size; row++)
             {
-                for (int col = 0; col < gridNumber; col++)
+                for (int col = 0; col < size; col++)
                 {
-                    if (space[row, col] == player)
+                    if (spaces[row, col] == player)
                     {
                         hCells++;
-                        if (hCells == gridNumber)
+                        if (hCells == size)
                         {
                             return true;
                         }
@@ -172,14 +174,14 @@ namespace TicTacToe2
         {
             int vCells = 0;
 
-            for (int col = 0; col < gridNumber; col++)
+            for (int col = 0; col < size; col++)
             {
-                for (int row = 0; row < gridNumber; row++)
+                for (int row = 0; row < size; row++)
                 {
-                    if (space[row, col] == player)
+                    if (spaces[row, col] == player)
                     {
                         vCells++;
-                        if (vCells == gridNumber)
+                        if (vCells == size)
                         {
                             return true;
                         }
@@ -195,24 +197,24 @@ namespace TicTacToe2
             int dCells = 0;
             int rdCells = 0;
 
-            for (int row = 0; row < gridNumber; row++)
+            for (int row = 0; row < size; row++)
             {
-                if (space[row, row] == player)
+                if (spaces[row, row] == player)
                 {
                     dCells++;
-                    if (dCells == gridNumber)
+                    if (dCells == size)
                     {
                         return true;
                     }
                 }
             }
-            for (int row = 0; row < gridNumber; row++)
+            for (int row = 0; row < size; row++)
             {
-                int col = gridNumber - row - 1;
-                if (space[row, col] == player)
+                int col = size - row - 1;
+                if (spaces[row, col] == player)
                 {
                     rdCells++;
-                    if (rdCells == gridNumber)
+                    if (rdCells == size)
                     {
                         return true;
                     }
