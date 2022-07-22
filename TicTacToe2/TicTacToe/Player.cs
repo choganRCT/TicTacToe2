@@ -6,8 +6,8 @@ namespace TicTacToe2.TicTacToe
 {
     class Player
     {
-        public int row;
-        public int col;
+        public readonly string row;
+        public readonly string col;
 
         public char Symbol { get; }
 
@@ -18,13 +18,31 @@ namespace TicTacToe2.TicTacToe
 
         public void GetMove(out int x, out int y)
         {
-            x = row;
-            y = col;
+            Console.WriteLine($"\nIt is player {Symbol}'s turn.");
+            Console.Write($"Pick a row: ");
+            y = GetUserInput();
+            Console.Write($"\nPick a column: ");
+            x = GetUserInput();
         }
 
-        public char GetSymbol()
+        public int GetUserInput()
         {
-            return Symbol;
+            int inputValue = 0;
+            bool isNumber = false;
+
+            while (!isNumber)
+            {
+                string input = Console.ReadLine();
+
+                if (!int.TryParse(input, out inputValue))
+                {
+                    Console.WriteLine($"{input} is not a number");
+                    continue;
+                }
+
+                isNumber = true;
+            }
+            return inputValue;
         }
     }
 }

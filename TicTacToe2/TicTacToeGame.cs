@@ -8,11 +8,11 @@ namespace TicTacToe2
     class TicTacToeGame
     {
         private char[,] spaces;
-        private char player = 'X'; //Player
-        private int turnCount = 0; //Game
+        private char player = 'X';
+        private int turnCount = 0;
         private int size = 0;
 
-        public void Play()  //Game
+        public void Play()
         {
             bool winner = false;
             bool draw = false;
@@ -124,7 +124,7 @@ namespace TicTacToe2
             turnCount++;
         }
 
-        private bool CheckForDraw() //Game
+        private bool CheckForDraw()
         {
             if (turnCount == (size * size))
             {
@@ -137,7 +137,7 @@ namespace TicTacToe2
             }
         }
 
-        private bool CheckForWin() //Game
+        private bool CheckForWin()
         {
             bool win = CheckHorizontal() || CheckVertical() || CheckDiagonals();
 
@@ -148,7 +148,7 @@ namespace TicTacToe2
             return win;
         }
 
-        private bool CheckHorizontal() //Game
+        private bool CheckHorizontal()
         {
             int hCells = 0;
 
@@ -170,7 +170,7 @@ namespace TicTacToe2
             return false;
         }
 
-        private bool CheckVertical()  //Game
+        private bool CheckVertical()
         {
             int vCells = 0;
 
@@ -192,7 +192,7 @@ namespace TicTacToe2
             return false;
         }
 
-        private bool CheckDiagonals()  //Game
+        private bool CheckDiagonals()
         {
             int dCells = 0;
             int rdCells = 0;
@@ -235,14 +235,14 @@ namespace TicTacToe2
             }
         }
 
-        private void Winner() //Game
+        private void Winner()
         {
             Console.Clear();
             DrawBoard();
             Console.WriteLine($"\nCongratulations!! {player} won.");
         }
 
-        private void Draw() //Game
+        private void Draw()
         {
             Console.Clear();
             DrawBoard();

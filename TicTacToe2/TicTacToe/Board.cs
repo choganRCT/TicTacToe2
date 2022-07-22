@@ -27,11 +27,7 @@ namespace TicTacToe2.TicTacToe
 
         public bool IsOnBoard(int x, int y)
         {
-            if (x >= Size - 1 || x < 0 || y >= Size - 1 || y < 0)
-            {
-                return true;
-            }
-            return false;
+            return x >= 0 && x < Size && y >= 0 && y < Size;
         }
 
         public void Draw()
