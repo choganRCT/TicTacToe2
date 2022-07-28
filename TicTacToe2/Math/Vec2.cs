@@ -39,13 +39,13 @@ namespace TicTacToe2.Math
         }
 
         // 3. Add int values x and y to the vector
-        public Vec2 AddXY(int x, int y)
+        public Vec2 Add(Vec2 V)
         {
-            return new Vec2(X + x, Y + y);
+            return new Vec2(V.X + X, V.Y + Y);
         }
 
         // 4. Add another Vec2 to the vector
-        public Vec2 AddAnother(Vec2 One, Vec2 Two)
+        public Vec2 Add(Vec2 One, Vec2 Two)
         {
             int newX = One.X + Two.X;
             int newY = One.Y + Two.Y;
@@ -66,26 +66,22 @@ namespace TicTacToe2.Math
         }
 
         // 7. Subtract int values x and y from the vector
-        public Vec2 SubtractXY(int x, int y)
+        public Vec2 Subtract(int x, int y)
         {
             return new Vec2(X - x, Y - y);
         }
 
         // 8. Subtract another Vec2 from the vector
-        public Vec2 SubtractAnother(Vec2 One, Vec2 Two)
+        public Vec2 Subtract(Vec2 V)
         {
-            int newX = One.X - Two.X;
-            int newY = One.Y - Two.Y;
-            Vec2 Three = new Vec2(newX, newY);
-            return Three;
+            return new Vec2(V.X - X, V.Y - Y);
         }
 
         // 9. Copy the vector
-        public Vec2(Vec2 other)
+        public Vec2 Copy(Vec2 V)
         {
-            X = other.X;
-            Y = other.Y;
-         }
+            return new Vec2(V.X, V.Y);
+        }
 
         // This class is immutable - its values cannot change. The methods above will need to return a new vector that contains the results of the calculation
     }
