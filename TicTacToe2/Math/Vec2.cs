@@ -39,18 +39,15 @@ namespace TicTacToe2.Math
         }
 
         // 3. Add int values x and y to the vector
-        public Vec2 Add(Vec2 V)
+        public Vec2 Add(int x, int y)
         {
-            return new Vec2(V.X + X, V.Y + Y);
+            return new Vec2(X + x, Y + y);
         }
 
         // 4. Add another Vec2 to the vector
-        public Vec2 Add(Vec2 One, Vec2 Two)
+        public Vec2 Add(Vec2 V)
         {
-            int newX = One.X + Two.X;
-            int newY = One.Y + Two.Y;
-            Vec2 Three = new Vec2(newX, newY);
-            return Three;
+            return new Vec2(V.X + X, V.Y + Y);
         }
 
         // 5. Subtract int value x from X value of the vector
