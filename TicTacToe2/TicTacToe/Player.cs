@@ -22,7 +22,7 @@ namespace TicTacToe2.TicTacToe
             x = GetUserInput();
         }
 
-        public int GetUserInput()
+        private int GetUserInput()
         {
             int inputValue = 0;
             bool isNumber = false;

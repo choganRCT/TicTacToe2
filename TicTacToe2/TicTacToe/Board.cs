@@ -6,6 +6,8 @@ namespace TicTacToe2.TicTacToe
 {
     class Board
     {
+        private static readonly char EmptySpace = ' ';
+
         public int Size { get; }
         private readonly char[,] spaces;
 
@@ -13,6 +15,14 @@ namespace TicTacToe2.TicTacToe
         {
             Size = size;
             spaces = new char[Size, Size];
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    spaces[x, y] = EmptySpace;
+                }
+            }
         }
 
         public void PlaceMark(int x, int y, char symbol)
@@ -22,7 +32,7 @@ namespace TicTacToe2.TicTacToe
 
         public bool HasMarkAt(int x, int y)
         {
-            return spaces[x, y] != ' ';
+            return spaces[x, y] != EmptySpace;
         }
 
         public bool IsOnBoard(int x, int y)
