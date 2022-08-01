@@ -71,7 +71,7 @@ namespace TicTacToe2.Math
         // 8. Subtract another Vec2 from the vector
         public Vec2 Subtract(Vec2 V)
         {
-            return new Vec2(V.X - X, V.Y - Y);
+            return new Vec2(X - V.X, Y - V.Y);
         }
 
         // 9. Copy the vector

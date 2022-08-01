@@ -193,24 +193,24 @@ namespace TicTacToe2.Tests
                 var a = new Vec2(7, 15);
                 var b = new Vec2(1, 1);
                 var c = a.Subtract(b);
-                Assert.AreEqual(-6, c.X);
-                Assert.AreEqual(-14, c.Y);
+                Assert.AreEqual(6, c.X);
+                Assert.AreEqual(14, c.Y);
             }
 
             {
                 var a = new Vec2(37, 5);
                 var b = new Vec2(-41, -8);
                 var c = a.Subtract(b);
-                Assert.AreEqual(-78, c.X);
-                Assert.AreEqual(-13, c.Y);
+                Assert.AreEqual(78, c.X);
+                Assert.AreEqual(13, c.Y);
             }
 
             {
                 var a = new Vec2(154, 663);
                 var b = new Vec2(0, 0);
                 var c = a.Subtract(b);
-                Assert.AreEqual(-154, c.X);
-                Assert.AreEqual(-663, c.Y);
+                Assert.AreEqual(154, c.X);
+                Assert.AreEqual(663, c.Y);
             }
 
         }
