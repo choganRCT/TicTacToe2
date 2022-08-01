@@ -6,9 +6,6 @@ namespace TicTacToe2.TicTacToe
 {
     class Player
     {
-        public readonly string row;
-        public readonly string col;
-
         public char Symbol { get; }
 
         public Player(char symbol)
