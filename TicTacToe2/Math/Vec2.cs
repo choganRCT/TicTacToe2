@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe2.Math
 {
-    class Vec2 // 2d vector
+    public class Vec2 // 2d vector
     {
         // Properties: X, Y (int). These properties should be read-only, meaning they should only have get, not set
         public int X { get; }
