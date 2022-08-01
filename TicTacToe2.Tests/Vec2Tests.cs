@@ -17,17 +17,17 @@ namespace TicTacToe2.Tests
             }
 
             {
-                var a = new Vec2(1, 1);
-                var b = a.AddX(-2);
-                Assert.AreEqual(-1, b.X);
-                Assert.AreEqual(1, b.Y);
+                var a = new Vec2(37, 5);
+                var b = a.AddX(-41);
+                Assert.AreEqual(-4, b.X);
+                Assert.AreEqual(5, b.Y);
             }
 
             {
-                var a = new Vec2(1, 1);
+                var a = new Vec2(154, 663);
                 var b = a.AddX(0);
-                Assert.AreEqual(1, b.X);
-                Assert.AreEqual(1, b.Y);
+                Assert.AreEqual(154, b.X);
+                Assert.AreEqual(663, b.Y);
             }
         }
 
