@@ -75,9 +75,9 @@ namespace TicTacToe2.Math
         }
 
         // 9. Copy the vector
-        public Vec2 Copy(Vec2 V)
+        public Vec2 Copy()
         {
-            return new Vec2(V.X, V.Y);
+            return new Vec2(X, Y);
         }
 
         // This class is immutable - its values cannot change. The methods above will need to return a new vector that contains the results of the calculation
