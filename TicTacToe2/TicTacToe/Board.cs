@@ -25,19 +25,20 @@ namespace TicTacToe2.TicTacToe
             }
         }
 
-        public void PlaceMark(int x, int y, char symbol)
+        public void PlaceMark(Math.Vec2 move, char symbol)
         {
-            spaces[x, y] = symbol;
+
+            spaces[move.X,move.Y] = symbol;
         }
 
-        public bool HasMarkAt(int x, int y)
+        public bool HasMarkAt(Math.Vec2 move)
         {
-            return spaces[x, y] != EmptySpace;
+            return spaces[move.X, move.Y] != EmptySpace;
         }
 
-        public bool IsOnBoard(int x, int y)
+        public bool IsOnBoard(Math.Vec2 move)
         {
-            return x >= 0 && x < Size && y >= 0 && y < Size;
+            return move.X >= 0 && move.X < Size && move.Y >= 0 && move.Y < Size;
         }
 
         public void Draw()
