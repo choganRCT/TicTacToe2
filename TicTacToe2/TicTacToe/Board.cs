@@ -63,5 +63,10 @@ namespace TicTacToe2.TicTacToe
                 Console.WriteLine();
             }
         }
+
+        public IEnumerable<char[]> GetDimensions()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
