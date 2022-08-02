@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TicTacToe2.Math;
 
 namespace TicTacToe2.TicTacToe
 {
@@ -25,18 +26,18 @@ namespace TicTacToe2.TicTacToe
             }
         }
 
-        public void PlaceMark(Math.Vec2 move, char symbol)
+        public void PlaceMark(Vec2 move, char symbol)
         {
 
-            spaces[move.X,move.Y] = symbol;
+            spaces[move.X, move.Y] = symbol;
         }
 
-        public bool HasMarkAt(Math.Vec2 move)
+        public bool HasMarkAt(Vec2 move)
         {
             return spaces[move.X, move.Y] != EmptySpace;
         }
 
-        public bool IsOnBoard(Math.Vec2 move)
+        public bool IsOnBoard(Vec2 move)
         {
             return move.X >= 0 && move.X < Size && move.Y >= 0 && move.Y < Size;
         }
