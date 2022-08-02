@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TicTacToe2.Math;
 
 namespace TicTacToe2.TicTacToe
 {
@@ -13,13 +14,15 @@ namespace TicTacToe2.TicTacToe
             Symbol = symbol;
         }
 
-        public void GetMove(out int x, out int y)
+        public Vec2 GetMove()
         {
             Console.WriteLine($"\nIt is player {Symbol}'s turn.");
             Console.Write($"Pick a row: ");
-            y = GetUserInput();
+            int y = GetUserInput();
             Console.Write($"\nPick a column: ");
-            x = GetUserInput();
+            int x = GetUserInput();
+            var move = new Vec2(x, y);
+            return move;
         }
 
         private int GetUserInput()
