@@ -14,14 +14,15 @@ namespace TicTacToe2.TicTacToe
             Symbol = symbol;
         }
 
-        public void Vec2()
+        public Vec2 GetMove()
         {
             Console.WriteLine($"\nIt is player {Symbol}'s turn.");
             Console.Write($"Pick a row: ");
             int y = GetUserInput();
             Console.Write($"\nPick a column: ");
             int x = GetUserInput();
-            _ = new Vec2(x, y);
+            var move = new Vec2(x, y);
+            return move;
         }
 
         private int GetUserInput()
