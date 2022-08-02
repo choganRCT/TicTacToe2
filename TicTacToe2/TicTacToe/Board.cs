@@ -66,7 +66,11 @@ namespace TicTacToe2.TicTacToe
 
         public IEnumerable<char[]> GetDimensions()
         {
-            throw new NotImplementedException();
+            var dimensions = new List<char[]>();
+
+            // fill dimensions with data from spaces
+
+            return dimensions;
         }
     }
 }
