@@ -21,8 +21,7 @@ namespace TicTacToe2.TicTacToe
             int y = GetUserInput();
             Console.Write($"\nPick a column: ");
             int x = GetUserInput();
-            var move = new Vec2(x, y);
-            return move;
+            return new Vec2(x, y);
         }
 
         private int GetUserInput()
