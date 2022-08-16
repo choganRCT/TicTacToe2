@@ -5,9 +5,9 @@ using TicTacToe2.Math;
 
 namespace TicTacToe2.TicTacToe
 {
-    class Board
+    public class Board
     {
-        private static readonly char EmptySpace = ' ';
+        public static readonly char EmptySpace = ' ';
 
         public int Size { get; }
         private readonly char[,] spaces;
