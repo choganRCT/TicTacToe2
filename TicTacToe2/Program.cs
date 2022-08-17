@@ -1,4 +1,5 @@
 ﻿using System;
+using TicTacToe2.TicTacToe;
 
 namespace TicTacToe2
 {
@@ -6,7 +7,7 @@ namespace TicTacToe2
     {
         static void Main(string[] args)
         {
-            var game = new TicTacToeGame();
+            var game = new Game();
             game.Play();
         }
     }
