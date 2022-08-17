@@ -13,6 +13,10 @@ namespace TicTacToe2.Tests
     {
         private Board CreateBoardA()
         {
+            // | O | X | X |
+            // |   | X | O |
+            // | O | X |   |
+
             var board = new Board(3);
             board.PlaceMark(new Vec2(1, 1), 'X');
             board.PlaceMark(new Vec2(0, 0), 'O');
@@ -42,7 +46,7 @@ namespace TicTacToe2.Tests
                 new char[] { 'X', 'X', 'X' },
                 new char[] { 'X', 'O', Board.EmptySpace },
                 new char[] { 'O', 'X', Board.EmptySpace },
-                new char[] { 'X', 'X', 'O' }
+                new char[] { 'O', 'X', 'X' }
             };
 
             var dimensionsList = dimensions.ToList();
