@@ -69,43 +69,48 @@ namespace TicTacToe2.TicTacToe
             var dimensions = new List<char[]>();
 
             // fill dimensions with data from spaces
-            var row = new char[Size];
+            
 
             // horizontal  y = columns,  x = rows
             for (int y = 0; y < Size; y++)
             {
+                var row = new char[Size];
                 for (int x = 0; x < Size; x++)
                 {
-                    row[y] = spaces[x, y];
-                    dimensions.Add(row);
+                    row[x] = spaces[x, y];
                 }
+                dimensions.Add(row);
             }
+
 
             // vertical
             for (int x = 0; x < Size; x++)
             {
+                var row = new char[Size];
                 for (int y = 0; y < Size; y++)
                 {
-                    row[x] = spaces[x, y];
+                    row[y] = spaces[x, y];
                 }
-
                 dimensions.Add(row);
             }
 
             // diagonal
+            var diagonal1 = new char[Size];
             for (int y = 0; y < Size; y++)
             {
-                int x = 0;
-                row[y] = spaces[x++, y];
-            }
-            dimensions.Add(row);
 
+                diagonal1[y] = spaces[y, y];
+            }
+            dimensions.Add(diagonal1);
+
+            var diagonal2 = new char[Size];
             for (int x = 0; x < Size; x++)
             {
+
                 int y = Size - x - 1;
-                row[x] = spaces[x, y--];
+                diagonal2[y] = spaces[x, y--];
             }
-            dimensions.Add(row);
+            dimensions.Add(diagonal2);
 
             return dimensions;
         }
