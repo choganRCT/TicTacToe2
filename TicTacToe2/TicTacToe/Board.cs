@@ -45,17 +45,17 @@ namespace TicTacToe2.TicTacToe
         public void Draw()
         {
             Console.Write("   ");
-            for (int y = 0; y < Size; y++)
+            for (int x = 0; x < Size; x++)
             {
-                Console.Write(y + "  ");
+                Console.Write($" {x} ");
             }
 
             Console.WriteLine();
 
-            for (int x = 0; x < Size; x++)
+            for (int y = 0; y < Size; y++)
             {
-                Console.Write(x + "| ");
-                for (int y = 0; y < Size; y++)
+                Console.Write(y + "| ");
+                for (int x = 0; x < Size; x++)
                 {
                     Console.Write(spaces[x, y]);
                     Console.Write(" | ");
