@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TicTacToe2.Math;
 
@@ -16,6 +17,7 @@ namespace TicTacToe2.TicTacToe
             while (!HasWinner(board) && !IsDraw(board))
             {
                 var player = players[playerIndex];
+                Console.WriteLine();
                 board.Draw();
                 board.PlaceMark(GetMove(player, board), player.Symbol);
 
@@ -28,11 +30,13 @@ namespace TicTacToe2.TicTacToe
 
             if (HasWinner(board))
             {
+                Console.WriteLine();
                 board.Draw();
                 Console.WriteLine($"Winner: {GetWinningSymbol(board)}");
             }
             else
             {
+                Console.WriteLine();
                 board.Draw();
                 Console.WriteLine("Draw");
             }
@@ -74,22 +78,52 @@ namespace TicTacToe2.TicTacToe
 
         private Vec2 GetMove(Player player, Board board)
         {
-            throw new NotImplementedException();
+            var move = player.GetMove();
+
+            while (board.HasMarkAt(move) || !board.IsOnBoard(move))
+            {
+                if (board.HasMarkAt(move))
+                {
+                    Console.WriteLine("Board already has a mark at this location");
+                }
+                if (!board.IsOnBoard(move))
+                {
+                    Console.WriteLine("Location is out of bounds");
+                }
+
+                move = player.GetMove();
+            }
+
+            return move;
         }
 
         private bool HasWinner(Board board)
         {
-            throw new NotImplementedException();
+            return board.GetDimensions()
+                .Any(dimension =>
+                    dimension.All(x => x != Board.EmptySpace
+                    && dimension.GroupBy(x => x).Count() == 1));
         }
 
         private bool IsDraw(Board board)
         {
-            throw new NotImplementedException();
+            return board.GetDimensions()
+                .All(dimension => dimension
+                    .Where(x => x != Board.EmptySpace)
+                    .GroupBy(x => x).Count() >= 2);
         }
 
         private char GetWinningSymbol(Board board)
         {
-            throw new NotImplementedException();
+            return board.GetDimensions()
+                .Where(dimension =>
+                    dimension.All(x => x != Board.EmptySpace
+                    && dimension.GroupBy(x => x).Count() == 1))
+                .Select(dimension => dimension
+                    .GroupBy(x => x)
+                    .Select(g => g.Key)
+                    .First())
+                .First();
         }
     }
 }
