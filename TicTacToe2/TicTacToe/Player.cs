@@ -5,7 +5,7 @@ using TicTacToe2.Math;
 
 namespace TicTacToe2.TicTacToe
 {
-    class Player
+    public class Player
     {
         public char Symbol { get; }
 
@@ -19,12 +19,12 @@ namespace TicTacToe2.TicTacToe
             Console.WriteLine($"\nIt is player {Symbol}'s turn.");
             Console.Write($"Pick a row: ");
             int y = GetUserInput();
-            Console.Write($"\nPick a column: ");
+            Console.Write($"Pick a column: ");
             int x = GetUserInput();
             return new Vec2(x, y);
         }
 
-        private int GetUserInput()
+        public int GetUserInput()
         {
             int inputValue = 0;
             bool isNumber = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TicTacToe2.Math;
 
@@ -74,22 +75,43 @@ namespace TicTacToe2.TicTacToe
 
         private Vec2 GetMove(Player player, Board board)
         {
-            throw new NotImplementedException();
+            var move = player.GetMove();
+
+            while (!board.IsOnBoard(move) || board.HasMarkAt(move))
+            {
+                Console.WriteLine("Invalid move. Try again.");
+                move = player.GetMove();
+            }
+            return move;
         }
 
         private bool HasWinner(Board board)
         {
-            throw new NotImplementedException();
+            return board.GetDimensions()
+                .Any(dimension =>
+                    !dimension.Any(space => space == Board.EmptySpace)
+                    && dimension.Distinct().Count() == 1
+                );
         }
 
         private bool IsDraw(Board board)
         {
-            throw new NotImplementedException();
+            return board.GetDimensions()
+                 .All(dimension =>
+                    !dimension.Any(space => space == Board.EmptySpace)
+                    && dimension.Distinct().Count() != 1
+                 );
         }
 
         private char GetWinningSymbol(Board board)
         {
-            throw new NotImplementedException();
+            var win = board.GetDimensions()
+                .Where(dimension =>
+                    !dimension.Any(space => space == Board.EmptySpace)
+                    && dimension.Distinct().Count() == 1
+                 ).ToList().First().First();
+
+            return win;
         }
     }
 }
