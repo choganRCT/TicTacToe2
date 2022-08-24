@@ -28,7 +28,6 @@ namespace TicTacToe2.TicTacToe
 
         public void PlaceMark(Vec2 move, char symbol)
         {
-
             spaces[move.X, move.Y] = symbol;
         }
 
@@ -44,10 +43,10 @@ namespace TicTacToe2.TicTacToe
 
         public void Draw()
         {
-            Console.Write("   ");
+            Console.Write("\n  ");
             for (int x = 0; x < Size; x++)
             {
-                Console.Write($" {x} ");
+                Console.Write($" {x}  ");
             }
 
             Console.WriteLine();
@@ -82,12 +81,12 @@ namespace TicTacToe2.TicTacToe
             // columns
             for (int x = 0; x < Size; x++)
             {
-                var row = new char[Size];
+                var col = new char[Size];
                 for (int y = 0; y < Size; y++)
                 {
-                    row[y] = spaces[x, y];
+                    col[y] = spaces[x, y];
                 }
-                dimensions.Add(row);
+                dimensions.Add(col);
             }
 
             // diagonal down
